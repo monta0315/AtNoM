@@ -1,6 +1,6 @@
 {
   "headers": {
-    "Content-Type": "application/json"
+    "x-line-signature": "G7xgIKRehDfWZOJjPel45Xwwt4HUJyOih600oeGkfJU="
   },
-  "body": "{\"name\": \"Frederic\"}"
+  "body": "{ \"destination\": \"U9d0c7d1e5117c4c98f5b46495105b68e\", \"events\": [] }\n"
 }

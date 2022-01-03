@@ -1,7 +1,24 @@
 export default {
   type: "object",
   properties: {
-    name: { type: 'string' }
+    distination: { type: "string" },
+    events: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          replyToken: {
+            type: "string",
+          },
+          message: {
+            type: "object",
+            properties: {
+              type: { type: "string" },
+              text: { type: "string" },
+            },
+          },
+        },
+      },
+    },
   },
-  required: ['name']
 } as const;

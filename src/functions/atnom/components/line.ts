@@ -90,6 +90,4 @@ const resetRichMenu = async () => {
   await createRichMenu();
 };
 
-resetRichMenu();
-
 export { signatureValidation, textReply, resetRichMenu };

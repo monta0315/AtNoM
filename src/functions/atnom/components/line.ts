@@ -1,6 +1,7 @@
-import { Client } from "@line/bot-sdk";
+import { Client, RichMenu } from "@line/bot-sdk";
 import * as crypto from "crypto";
 import * as dotenv from "dotenv";
+import { createReadStream } from "fs";
 dotenv.config();
 
 const getClient = () => {
@@ -28,4 +29,67 @@ const textReply = (token: string, text: string) => {
   });
 };
 
-export { signatureValidation, textReply };
+const createRichMenu = async () => {
+  const client = getClient();
+  const richmenu: RichMenu = {
+    size: {
+      width: 1200,
+      height: 600,
+    },
+    selected: true,
+    name: "atnom",
+    chatBarText: "TAP HERE",
+    areas: [
+      {
+        bounds: {
+          x: 0,
+          y: 0,
+          width: 600,
+          height: 600,
+        },
+        action: {
+          type: "message",
+          text: "My fav is",
+        },
+      },
+      {
+        bounds: {
+          x: 600,
+          y: 0,
+          width: 600,
+          height: 600,
+        },
+        action: {
+          type: "message",
+          text: "someone favs are",
+        },
+      },
+    ],
+  };
+  const richMenuId = await client
+    .createRichMenu(richmenu)
+    .catch((err) => console.log(err));
+  if (richMenuId) {
+    await client.setRichMenuImage(
+      richMenuId,
+      createReadStream("src/functions/atnom/images/richMenu.png")
+    );
+    await client.setDefaultRichMenu(richMenuId);
+  }
+};
+
+const deleteRichMenu = async () => {
+  const client = getClient();
+  const richMenuId = await client.getDefaultRichMenuId();
+  await client.deleteDefaultRichMenu();
+  await client.deleteRichMenu(richMenuId);
+};
+
+const resetRichMenu = async () => {
+  await deleteRichMenu();
+  await createRichMenu();
+};
+
+resetRichMenu();
+
+export { signatureValidation, textReply, resetRichMenu };

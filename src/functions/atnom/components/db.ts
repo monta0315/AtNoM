@@ -1,2 +1,2 @@
-const db = () => {};
-export { db };
+const store = () => {};
+export { store };

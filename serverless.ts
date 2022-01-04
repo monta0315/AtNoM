@@ -17,6 +17,16 @@ const serverlessConfiguration: AWS = {
       platform: "node",
     },
   },
+  resources: {
+    Resources: {
+      atnomTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "atnomTable",
+        },
+      },
+    },
+  },
   plugins: ["serverless-esbuild"],
   provider: {
     name: "aws",

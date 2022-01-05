@@ -123,6 +123,11 @@ const createContents = (component: messageComponent): FlexBubble => {
                     },
                   ],
                   spacing: "sm",
+                  action: {
+                    type: "uri",
+                    label: "action",
+                    uri: component.videoUrl,
+                  },
                 },
                 {
                   type: "filler",

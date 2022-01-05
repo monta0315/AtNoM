@@ -4,7 +4,7 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
-import { signatureValidation, textReply } from "./components/line";
+import { flexReply, signatureValidation } from "./components/line";
 import schema from "./schema";
 
 const components = [
@@ -42,10 +42,14 @@ const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   ) {
     if (event.body.events.length) {
       // validationチェック用のリクエストではない場合
-      textReply(
+      /* textReply(
         event.body.events[0].replyToken,
         event.body.events[0].message.text
-      );
+      ); */
+      const replyToken = event.body.events[0].replyToken;
+      const text = event.body.events[0].message.text;
+      console.log(text);
+      flexReply(replyToken, components);
       return format200JSONResponse({
         message: "success",
       });

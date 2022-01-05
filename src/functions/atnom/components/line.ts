@@ -98,4 +98,4 @@ const resetRichMenu = async () => {
 
 resetRichMenu();
 
-export { signatureValidation, textReply, resetRichMenu };
+export { signatureValidation, textReply, resetRichMenu, flexReply };

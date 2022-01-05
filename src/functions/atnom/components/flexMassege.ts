@@ -1,4 +1,4 @@
-import { FlexMessage, Message } from "@line/bot-sdk";
+import { FlexBubble, FlexCarousel, FlexMessage } from "@line/bot-sdk";
 type messageComponent = {
   videoUrl: string;
   imageUrl: string;
@@ -15,14 +15,29 @@ const typeIconUrl = (type: string) => {
   }
 };
 
-const flexMessage = (components: messageComponent[]): Message[] => {
+const funny =
+  "https://uc-emoji.azureedge.net/orig/12/891eca811472a9587327f1ea5696fd.png";
+
+const flexMessage = (components: messageComponent[]): FlexMessage => {
   //DBからデータとってくるようにしたい
-  return components.map((component) => createContents(component));
+  const bubules: FlexBubble[] = components.map((component) =>
+    createContents(component)
+  );
+  const container: FlexCarousel = {
+    type: "carousel",
+    contents: bubules,
+  };
+
+  return {
+    type: "flex",
+    altText: "flex",
+    contents: container,
+  };
 };
 
-const createContents = (component: messageComponent): FlexMessage => {
+const createContents = (component: messageComponent): FlexBubble => {
   const typeIcon = typeIconUrl(component.type);
-  const template = {
+  const template: FlexBubble = {
     type: "bubble",
     body: {
       type: "box",
@@ -91,7 +106,7 @@ const createContents = (component: messageComponent): FlexMessage => {
                     },
                     {
                       type: "icon",
-                      url: "https://openmoji.org/data/color/svg/1F929.svg",
+                      url: funny,
                       size: "xxl",
                       position: "relative",
                       margin: "none",
@@ -136,22 +151,24 @@ const createContents = (component: messageComponent): FlexMessage => {
             {
               type: "icon",
               size: "4xl",
-              offsetTop: "3px",
               url: typeIcon,
+              offsetBottom: "2px",
+              offsetStart: "1px",
             },
           ],
           position: "absolute",
           cornerRadius: "20px",
           offsetTop: "18px",
           offsetStart: "18px",
-          height: "100px",
-          width: "100px",
+          height: "50px",
+          width: "50px",
+          backgroundColor: "#ffffff",
         },
       ],
       paddingAll: "0px",
     },
   };
-  return JSON.stringify(template);
+  return template;
 };
 
 export { flexMessage, messageComponent };

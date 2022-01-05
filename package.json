@@ -13,6 +13,7 @@
     "@line/bot-sdk": "^7.4.0",
     "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
+    "axios": "^0.24.0",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
     "dotenv": "^10.0.0"

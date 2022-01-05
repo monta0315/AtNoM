@@ -19,14 +19,35 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
-      atnomTable: {
+      youtubeVideoTable: {
         Type: "AWS::DynamoDB::Table",
         Properties: {
-          TableName: "atnomTable",
+          TableName: "youtubeVideoTable",
+          // Primary KeyとSort Key(あれば)の型を指定
+          AttributeDefinitions: [
+            {
+              AttributeName: "title",
+              AttributeType: "S",
+            },
+          ],
+          // # キーの種類を指定（ハッシュorレンジキー）
+          // ハッシュ＝Primary Key, レンジキー=Sort Key
+          KeySchema: [
+            {
+              KeyType: "HASH",
+              AttributeName: "title",
+            },
+          ],
+          // プロビジョニングするキャパシティーユニットの設定
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
         },
       },
     },
   },
+
   plugins: ["serverless-esbuild"],
   provider: {
     name: "aws",
@@ -36,6 +57,16 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        // 許可する処理を設定
+        Action: ["dynamodb:PutItem", "dynamodb:GetItem"],
+        // 処理を許可するリソースを設定
+        Resource:
+          "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/usersTable",
+      },
+    ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",

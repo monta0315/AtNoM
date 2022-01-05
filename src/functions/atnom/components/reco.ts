@@ -1,28 +1,5 @@
+import { getDbData } from "./db";
 import { flexReply, textReply } from "./line";
-
-const components = [
-  {
-    videoUrl: "https://youtu.be/ID74QtPAlEM",
-    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
-    name: "monta",
-    title: "test",
-    type: "youtube",
-  },
-  {
-    videoUrl: "https://youtu.be/ZBQ0ae9bFsc",
-    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
-    name: "monta",
-    title: "test",
-    type: "youtube",
-  },
-  {
-    videoUrl: "https://youtu.be/oOZWhZJYNxQ",
-    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
-    name: "monta",
-    title: "test",
-    type: "youtube",
-  },
-];
 
 const checkYoutubeMovie = (url: string): boolean => {
   const youtubeRegExp = new RegExp("^https://youtu.be/[0-9a-zA-Z]{11}$");
@@ -53,12 +30,17 @@ const checkUrl = (url: string, replyToken: string) => {
   }
 };
 
-const reco = (text: string, replyToken: string) => {
+const reco = async (text: string, replyToken: string) => {
   if (text === "My fav is") {
     textReply(replyToken, "Open Keyboard and Tell me reco !!");
   } else if (text === "someone favs are") {
     //dbからおすすめ動画を3ついい感じに送る
-    flexReply(replyToken, components);
+    const dbData = await getDbData();
+    if (dbData.length === 0) {
+      textReply(replyToken, "something wrong");
+    } else {
+      flexReply(replyToken, dbData);
+    }
   } else {
     //youtube or tiktok or netflixのurlを判定する
     checkUrl(text, replyToken);

@@ -11,7 +11,8 @@ import schema from "./schema";
 const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  console.log("test", event.body.events);
+  console.log("test", event);
+  event.resource;
   if (
     signatureValidation(
       Buffer.from(JSON.stringify(event.body)),
@@ -20,13 +21,10 @@ const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   ) {
     if (event.body.events.length) {
       // validationチェック用のリクエストではない場合
-      /* textReply(
-        event.body.events[0].replyToken,
-        event.body.events[0].message.text
-      ); */
       const replyToken = event.body.events[0].replyToken;
       const text = event.body.events[0].message.text;
-      reco(replyToken, text);
+      const userId = event.body.events[0].source.userId;
+      await reco(text, replyToken, userId);
       return format200JSONResponse({
         message: "success",
       });

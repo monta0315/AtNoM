@@ -35,6 +35,12 @@ const flexReply = (token: string, components: messageComponent[]) => {
   client.replyMessage(token, flexMessage(components));
 };
 
+const getUserName = async (userId: string) => {
+  const client = getClient();
+  const profile = await client.getProfile(userId);
+  return profile.displayName;
+};
+
 const createRichMenu = async () => {
   const client = getClient();
   const richmenu: RichMenu = {
@@ -96,6 +102,10 @@ const resetRichMenu = async () => {
   await createRichMenu();
 };
 
-resetRichMenu();
-
-export { signatureValidation, textReply, resetRichMenu, flexReply };
+export {
+  signatureValidation,
+  textReply,
+  resetRichMenu,
+  flexReply,
+  getUserName,
+};

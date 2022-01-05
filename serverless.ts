@@ -61,10 +61,10 @@ const serverlessConfiguration: AWS = {
       {
         Effect: "Allow",
         // 許可する処理を設定
-        Action: ["dynamodb:PutItem", "dynamodb:GetItem"],
+        Action: ["dynamodb:*"],
         // 処理を許可するリソースを設定
         Resource:
-          "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/usersTable",
+          "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/youtubeVideoTable",
       },
     ],
     environment: {

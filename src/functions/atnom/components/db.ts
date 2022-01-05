@@ -1,6 +1,5 @@
 import * as AWS from "aws-sdk";
 import axios from "axios";
-import { messageComponent } from "./flexMassege";
 
 AWS.config.update({
   region: "ap-northeast-1",
@@ -65,18 +64,7 @@ const getDbData = async () => {
   const data = {
     TableName: "youtubeVideoTable",
   };
-  let re: messageComponent[] = [];
-  await documentClient
-    .scan(data)
-    .promise()
-    .then((result) => {
-      result.Items.forEach((i: messageComponent) => {
-        re.push(i);
-      });
-    })
-    .catch((err) => console.log(err));
-
-  return re;
+  return (await documentClient.scan(data).promise()).Items;
 };
 
 export { store, getDbData };

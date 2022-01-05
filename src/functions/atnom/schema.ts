@@ -17,6 +17,13 @@ export default {
               text: { type: "string" },
             },
           },
+          source: {
+            type: "object",
+            properties: {
+              type: { type: "string" },
+              userId: { type: "string" },
+            },
+          },
         },
       },
     },

@@ -1,4 +1,28 @@
-import { textReply } from "./line";
+import { flexReply, textReply } from "./line";
+
+const components = [
+  {
+    videoUrl: "https://youtu.be/ID74QtPAlEM",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+  {
+    videoUrl: "https://youtu.be/ZBQ0ae9bFsc",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+  {
+    videoUrl: "https://youtu.be/oOZWhZJYNxQ",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+];
 
 const checkYoutubeMovie = (url: string): boolean => {
   const youtubeRegExp = new RegExp("^https://youtu.be/[0-9a-zA-Z]{11}$");
@@ -34,7 +58,7 @@ const reco = (text: string, replyToken: string) => {
     textReply(replyToken, "Open Keyboard and Tell me reco !!");
   } else if (text === "someone favs are") {
     //dbからおすすめ動画を3ついい感じに送る
-    textReply(replyToken, "test");
+    flexReply(replyToken, components);
   } else {
     //youtube or tiktok or netflixのurlを判定する
     checkUrl(text, replyToken);

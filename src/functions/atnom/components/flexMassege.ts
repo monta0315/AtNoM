@@ -10,6 +10,10 @@ type messageComponent = {
 const typeIconUrl = (type: string) => {
   if (type === "youtube") {
     return "https://img.icons8.com/plasticine/344/youtube.png";
+  } else if (type === "tiktok") {
+    return "https://img.icons8.com/doodle/344/tiktok--v2.png";
+  } else if (type === "netflix") {
+    return "https://img.icons8.com/fluency/344/netflix-desktop-app.png";
   } else {
     return "https://img.icons8.com/plasticine/344/youtube.png";
   }

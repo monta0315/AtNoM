@@ -7,6 +7,30 @@ import { middyfy } from "@libs/lambda";
 import { signatureValidation, textReply } from "./components/line";
 import schema from "./schema";
 
+const components = [
+  {
+    videoUrl: "https://youtu.be/ID74QtPAlEM",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+  {
+    videoUrl: "https://youtu.be/ZBQ0ae9bFsc",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+  {
+    videoUrl: "https://youtu.be/oOZWhZJYNxQ",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+];
+
 const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {

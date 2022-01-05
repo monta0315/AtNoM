@@ -4,9 +4,32 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
-import { signatureValidation } from "./components/line";
-import { reco } from "./components/reco";
+import { flexReply, signatureValidation } from "./components/line";
 import schema from "./schema";
+
+const components = [
+  {
+    videoUrl: "https://youtu.be/ID74QtPAlEM",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+  {
+    videoUrl: "https://youtu.be/ZBQ0ae9bFsc",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+  {
+    videoUrl: "https://youtu.be/oOZWhZJYNxQ",
+    imageUrl: "https://img.youtube.com/vi/oOZWhZJYNxQ/maxres1.jpg",
+    name: "monta",
+    title: "test",
+    type: "youtube",
+  },
+];
 
 const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -20,11 +43,14 @@ const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   ) {
     if (event.body.events.length) {
       // validationチェック用のリクエストではない場合
-
-      //おすすめを教えてくれと言われた場合
+      /* textReply(
+        event.body.events[0].replyToken,
+        event.body.events[0].message.text
+      ); */
       const replyToken = event.body.events[0].replyToken;
       const text = event.body.events[0].message.text;
-      reco(text, replyToken);
+      console.log(text);
+      flexReply(replyToken, components);
       return format200JSONResponse({
         message: "success",
       });

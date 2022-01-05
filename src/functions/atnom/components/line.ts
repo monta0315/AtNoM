@@ -2,6 +2,7 @@ import { Client, RichMenu } from "@line/bot-sdk";
 import * as crypto from "crypto";
 import * as dotenv from "dotenv";
 import { createReadStream } from "fs";
+import { flexMessage, messageComponent } from "./flexMassege";
 dotenv.config();
 
 const getClient = () => {
@@ -27,6 +28,11 @@ const textReply = (token: string, text: string) => {
     type: "text",
     text: text,
   });
+};
+
+const flexReply = (token: string, components: messageComponent[]) => {
+  const client = getClient();
+  client.replyMessage(token, flexMessage(components));
 };
 
 const createRichMenu = async () => {
@@ -90,4 +96,6 @@ const resetRichMenu = async () => {
   await createRichMenu();
 };
 
-export { signatureValidation, textReply, resetRichMenu };
+resetRichMenu();
+
+export { signatureValidation, textReply, resetRichMenu, flexReply };

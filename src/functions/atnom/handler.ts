@@ -12,6 +12,7 @@ const atnom: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
   console.log("test", event);
+  console.log(event.body.events[0]);
   event.resource;
   if (
     signatureValidation(

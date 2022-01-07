@@ -2,7 +2,7 @@ import { getDbData, store } from "./db";
 import { flexReply, getUserName, textReply } from "./line";
 
 const checkYoutubeMovie = (url: string): boolean => {
-  const youtubeRegExp = new RegExp("^https://youtu.be/[0-9a-zA-Z]{11}$");
+  const youtubeRegExp = new RegExp("^https://youtu.be/[0-9a-zA-Z-]{11}$");
   return youtubeRegExp.test(url);
 };
 
@@ -19,7 +19,7 @@ const checkNetflixMovie = (url: string) => {
 };
 
 const getYoutubeId = (url: string): string => {
-  const youtubeIdRegExp = new RegExp("[0-9a-zA-Z]{11}");
+  const youtubeIdRegExp = new RegExp("[0-9a-zA-Z-]{11}");
   return youtubeIdRegExp.exec(url)[0];
 };
 
